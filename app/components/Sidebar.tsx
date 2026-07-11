@@ -6,8 +6,7 @@ import { LayoutDashboard, Package, Settings } from 'lucide-react'
 
 const navItems = [
   { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
-  { name: 'Inventory', href: '/dashboard', icon: Package },
-  { name: 'Settings', href: '/settings', icon: Settings },
+  
 ]
 
 export default function Sidebar({ userEmail }: { userEmail: string }) {
