@@ -5,13 +5,7 @@ const globalForPrisma = globalThis as unknown as {
   prisma: PrismaClient | undefined
 }
 
-const adapter = new PrismaMariaDb({
-  host: 'localhost',
-  port: 3306,
-  user: 'root',
-  password: '',
-  database: 'stockpilot',
-})
+const adapter = new PrismaMariaDb(process.env.DATABASE_URL!)
 
 export const prisma = globalForPrisma.prisma ?? new PrismaClient({ adapter })
 
