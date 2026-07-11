@@ -20,6 +20,11 @@ export async function createProduct(formData: FormData) {
     throw new Error('Name, SKU, and category are required')
   }
 
+  const existing = await prisma.product.findUnique({ where: { sku } })
+  if (existing) {
+    throw new Error('A product with this SKU already exists')
+  }
+
   await prisma.product.create({
     data: {
       name,
@@ -33,7 +38,6 @@ export async function createProduct(formData: FormData) {
 
   redirect('/dashboard')
 }
-
 export async function updateProduct(id: number, formData: FormData) {
   const session = await auth()
   if (!session?.user) {
