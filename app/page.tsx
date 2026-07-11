@@ -3,7 +3,7 @@ import { Package, Search, ShieldCheck, TrendingDown } from 'lucide-react'
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-[#5F6B3E]">
       {/* Nav */}
       <header className="border-b border-gray-100">
         <div className="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
