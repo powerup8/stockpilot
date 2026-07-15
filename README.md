@@ -1,36 +1,70 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# StockPilot
 
-## Getting Started
+> Simple inventory tracking with real-time low-stock alerts — know what you have, before you run out.
 
-First, run the development server:
+**Live demo → https://stockpilot-jade.vercel.app**
+
+## Demo Login
+
+Try it instantly without signing up:
+- **Email:** demo@stockpilot.com
+- **Password:** demo1234
+
+## Features
+
+- Secure authentication (signup, login, hashed passwords, protected routes)
+- Full CRUD for inventory products — create, edit, delete, list
+- Automatic low-stock flagging based on a per-product threshold
+- Search/filter by product name, SKU, or category
+- Row-level authorization — users can only view/edit their own products
+- Clean, consistent UI with loading states and graceful error handling
+
+## Tech Stack
+
+Next.js (App Router) · TypeScript (strict) · Tailwind CSS · MySQL · Prisma ORM · NextAuth (Credentials) · Railway (database hosting) · Vercel (deployment)
+
+## Quick Start
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/powerup8/stockpilot.git
+cd stockpilot
+npm install
+cp .env.example .env   # then fill in your own DATABASE_URL and AUTH_SECRET
+npx prisma migrate dev
+npm run dev             # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Environment Variables
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Variable | Description |
+| --- | --- |
+| `DATABASE_URL` | MySQL connection string (e.g. from Railway or local MySQL) |
+| `AUTH_SECRET` | Session signing secret — generate with `npx auth secret` |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Architecture
 
-## Learn More
+**Data model:** Two tables — `User` (id, name, email, hashed password) and `Product` (id, name, sku, category, quantityOnHand, lowStockThreshold, userId). Each product belongs to exactly one user via a foreign key.
 
-To learn more about Next.js, take a look at the following resources:
+**Auth:** NextAuth with a Credentials provider. Passwords are hashed with bcrypt before storage. Sessions use JWT strategy, with the user's database ID injected into the token via a custom callback so server actions can query only that user's data.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+**Authorization:** Every write (create/update/delete) checks that the authenticated user owns the product being modified — not just that they're logged in.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Known Limitations
 
-## Deploy on Vercel
+- **Password reset via email is not implemented.** This was scoped out to prioritize a fully tested core experience within the project timeline. A future iteration would add token-based reset via a transactional email provider (e.g. Resend).
+- **Single-location inventory only.** The original concept included multi-warehouse support; this was narrowed to single-location tracking to ship a polished, fully working core rather than a partially built multi-warehouse system.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## What I'd Build Next
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Multi-warehouse inventory splitting
+- Email-based password reset
+- CSV export of inventory
+- Basic analytics (stock trends over time)
+
+## License
+
+MIT — see [LICENSE](./LICENSE)
+
+---
+
+*Built for the Digital Heroes Full Stack Developer Trial.*
