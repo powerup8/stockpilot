@@ -7,8 +7,8 @@
 ## Demo Login
 
 Try it instantly without signing up:
-- **Email:** demo@stockpilot.com
-- **Password:** demo1234
+- **Email:** user@gmail.com
+- **Password:** User@123
 
 ## Features
 
@@ -60,6 +60,24 @@ npm run dev             # http://localhost:3000
 - Email-based password reset
 - CSV export of inventory
 - Basic analytics (stock trends over time)
+
+
+## Demo Video
+
+[Watch the 3-minute walkthrough]https://drive.google.com/file/d/1A-wDWgvzfz9WIku8duJE6zTFL-xy668C/view?usp=drivesdk
+
+
+## Case Study
+
+**Problem:** Small teams tracking inventory in spreadsheets lose track of stock levels until it's too late — no alerts, no search, no structure.
+
+**Approach:** Built a focused, single-purpose inventory tracker rather than a sprawling multi-warehouse system — prioritizing a fully working, polished core (auth, CRUD, search, low-stock alerts) over broad but shallow feature coverage.
+
+**Result:** A live, deployed, tested product handling real authentication, authorization, and data persistence — with a consistent design system applied across every page.
+
+[Read the full case study](docs/case-study.md)
+
+
 
 ## License
 
