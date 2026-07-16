@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { signOut } from 'next-auth/react'
 import { LayoutDashboard } from 'lucide-react'
 
 const navItems = [{ name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard }]
@@ -36,8 +37,14 @@ export default function Sidebar({ userEmail }: { userEmail: string }) {
         })}
       </nav>
 
-      <div className="px-6 py-4 border-t border-white/10">
+      <div className="px-6 py-4 border-t border-white/10 space-y-2">
         <p className="text-xs text-slate-500 truncate">{userEmail}</p>
+        <button
+          onClick={() => signOut({ callbackUrl: '/' })}
+          className="text-xs text-slate-400 hover:text-red-400 transition-colors duration-150"
+        >
+          Log out
+        </button>
       </div>
     </aside>
   )
